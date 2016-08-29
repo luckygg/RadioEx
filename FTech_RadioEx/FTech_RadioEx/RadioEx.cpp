@@ -2,7 +2,6 @@
 //
 
 #include "stdafx.h"
-#include "FTech_RadioEx.h"
 #include "RadioEx.h"
 
 
