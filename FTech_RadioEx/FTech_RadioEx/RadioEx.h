@@ -5,6 +5,7 @@
 //----------------------------------------------------------
 // Programmed by William Kim
 //----------------------------------------------------------
+// Last Update 2016-09-01 09:59
 
 // CRadioEx
 
@@ -62,8 +63,11 @@ public :
 	void SetGroupBegin() { ModifyStyle(0,WS_GROUP); Invalidate(); }
 	void SetGroupEnd() { ModifyStyle(0,WS_TABSTOP); Invalidate(); }
 
-	//----- Set Check -----//
+	//----- Set & Get Check -----//
 	void SetCheckButton(bool bCheck) { bCheck ? SetCheck(1) : SetCheck(0); }
+	bool GetCheckedButton() { int state = GetCheck(); bool ret;state==1 ? ret=true : ret=false; return ret; }
+
+	
 
 private :
 	bool	m_bEnable;
