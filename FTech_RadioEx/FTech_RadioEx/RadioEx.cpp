@@ -478,3 +478,57 @@ void CRadioEx::SetSizeCheckBox(int nLeft, int nTop, int nWidth, int nHeight)
 	Invalidate(); 
 }
 
+void CRadioEx::SetColorBkg(int nA, COLORREF clrColor)
+{
+	int r = GetRValue(clrColor);
+	int g = GetGValue(clrColor);
+	int b = GetBValue(clrColor);
+
+	m_clrBkg = Color(nA, r, g, b); 
+	Invalidate();
+}
+void CRadioEx::SetColorBorder(int nA, COLORREF clrColor)
+{
+	int r = GetRValue(clrColor);
+	int g = GetGValue(clrColor);
+	int b = GetBValue(clrColor);
+
+	m_clrBorder = Color(nA, r, g, b); 
+	Invalidate();
+}
+void CRadioEx::SetColorBoxBkg(int nA, COLORREF clrColor)
+{
+	int r = GetRValue(clrColor);
+	int g = GetGValue(clrColor);
+	int b = GetBValue(clrColor);
+
+	m_clrBoxBkg = Color(nA, r, g, b); 
+	Invalidate();
+}
+void CRadioEx::SetColorBoxBorder(int nA, COLORREF clrColor)
+{
+	int r = GetRValue(clrColor);
+	int g = GetGValue(clrColor);
+	int b = GetBValue(clrColor);
+
+	m_clrBoxBorder = Color(nA, r, g, b); 
+	Invalidate();
+}
+void CRadioEx::SetColorCheck(int nA, COLORREF clrColor)
+{
+	int r = GetRValue(clrColor);
+	int g = GetGValue(clrColor);
+	int b = GetBValue(clrColor);
+
+	m_clrCheck = Color(nA, r, g, b); 
+	Invalidate();
+}
+void CRadioEx::SetColorText(int nA, COLORREF clrColor)
+{
+	int r = GetRValue(clrColor);
+	int g = GetGValue(clrColor);
+	int b = GetBValue(clrColor);
+
+	m_clrText = Color(nA, r, g, b); 
+	Invalidate();
+}
