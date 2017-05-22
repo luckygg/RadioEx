@@ -54,10 +54,10 @@ BOOL CFTech_RadioExDlg::OnInitDialog()
 	m_rbtnTest1.SetSizeCheckBox(3,3,30,30);
 	m_rbtnTest1.SetColorCheck(255,255,255,0);
 	m_rbtnTest1.SetColorBoxBorder(255,81,81,81);
-	m_rbtnTest1.LoadImageFromFile(L"babelfish.png");
+	m_rbtnTest1.LoadImageFromFile(_T("babelfish.png"));
 	m_rbtnTest1.SetSizeImage(40,3,30,30);
 	m_rbtnTest1.SetOffsetText(-10,0);
-	m_rbtnTest1.SetText(L"GDI+ Radio");
+	m_rbtnTest1.SetText(_T("GDI+ Radio"));
 	m_rbtnTest1.SetGroupBegin();
 	m_rbtnTest1.SetCheckButton(true);
 
@@ -65,16 +65,16 @@ BOOL CFTech_RadioExDlg::OnInitDialog()
 	m_rbtnTest2.SetSizeCheck(10);
 	m_rbtnTest2.SetSizeCheckBox(3,3,30,30);
 	m_rbtnTest2.SetColorCheck(255,255,255,0);
-	m_rbtnTest2.LoadImageFromFile(L"babelfish.png");
+	m_rbtnTest2.LoadImageFromFile(_T("babelfish.png"));
 	m_rbtnTest2.SetSizeImage(40,3,30,30);
 	m_rbtnTest2.SetOffsetText(-10,0);
-	m_rbtnTest2.SetText(L"GDI+ Radio");
+	m_rbtnTest2.SetText(_T("GDI+ Radio"));
 	m_rbtnTest2.SetGroupEnd();
 
-	m_rbtnTest3.LoadImageFromFile(L"check.png",L"normal.png");
+	m_rbtnTest3.LoadImageFromFile(_T("check.png"),_T("normal.png"));
 	m_rbtnTest3.SetGroupBegin();
 	m_rbtnTest3.SetCheckButton(true);
-	m_rbtnTest4.LoadImageFromFile(L"check.png",L"normal.png");
+	m_rbtnTest4.LoadImageFromFile(_T("check.png"),_T("normal.png"));
 	m_rbtnTest4.SetGroupEnd();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control

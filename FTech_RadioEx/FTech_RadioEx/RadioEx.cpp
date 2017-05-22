@@ -233,10 +233,10 @@ void CRadioEx::DrawImage(Graphics *pG)
 
 void CRadioEx::DrawText(Graphics *pG)
 {
-	CString text = L"";
+	CString text = _T("");
 	GetWindowText(text);
 
-	FontFamily fontptroll(L"Arial");
+	FontFamily fontptroll(_T("Arial"));
 	Gdiplus::Font font(&fontptroll, m_fSizeText, FontStyleRegular, UnitPixel);
 
 	StringFormat formatAlign;
@@ -283,7 +283,7 @@ bool CRadioEx::LoadImageFromResource(UINT ID, bool bPNG)
 	else
 	{
 		// PNG 리소스는 Bitmap 리소스를 불러오는 것보다 복잡하다.
-		HRSRC hResource = ::FindResource(AfxGetApp()->m_hInstance, (WCHAR*)MAKEINTRESOURCEW(ID), L"PNG");	// 3번째 인자는 실제 리소스가 분류되는 문자열이 전달되어야 한다.
+		HRSRC hResource = ::FindResource(AfxGetApp()->m_hInstance, (WCHAR*)MAKEINTRESOURCEW(ID), _T("PNG"));	// 3번째 인자는 실제 리소스가 분류되는 문자열이 전달되어야 한다.
 		if (!hResource) return false;
 
 		DWORD imageSize = ::SizeofResource(AfxGetApp()->m_hInstance, hResource);
@@ -392,7 +392,7 @@ bool CRadioEx::LoadImageFromResource(UINT idCheck, UINT idUnCheck, bool bPNG)
 			i==0 ? ID=idCheck : ID=idUnCheck;
 
 			// PNG 리소스는 Bitmap 리소스를 불러오는 것보다 복잡하다.
-			HRSRC hResource = ::FindResource(AfxGetApp()->m_hInstance, (WCHAR*)MAKEINTRESOURCEW(ID), L"PNG");	// 3번째 인자는 실제 리소스가 분류되는 문자열이 전달되어야 한다.
+			HRSRC hResource = ::FindResource(AfxGetApp()->m_hInstance, (WCHAR*)MAKEINTRESOURCEW(ID), _T("PNG"));	// 3번째 인자는 실제 리소스가 분류되는 문자열이 전달되어야 한다.
 			if (!hResource) return false;
 
 			DWORD imageSize = ::SizeofResource(AfxGetApp()->m_hInstance, hResource);
