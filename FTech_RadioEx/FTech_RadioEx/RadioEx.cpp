@@ -19,6 +19,7 @@ CRadioEx::CRadioEx()
 	m_clrText		= Color(255,255,255,255);
 
 	m_bEnable	= true;
+	m_bMouseTrack = FALSE;
 
 	m_fSizeBorder	= 4;
 	m_fSizeBoxBorder= 1;
@@ -64,6 +65,8 @@ CRadioEx::~CRadioEx()
 BEGIN_MESSAGE_MAP(CRadioEx, CButton)
 	ON_WM_ERASEBKGND()
 	ON_WM_PAINT()
+	ON_WM_MOUSELEAVE()
+	ON_WM_MOUSEMOVE()
 END_MESSAGE_MAP()
 // CRadioEx message handlers
 
@@ -90,6 +93,61 @@ BOOL CRadioEx::OnEraseBkgnd(CDC* pDC)
 
 void CRadioEx::OnPaint()
 {
+	//CPaintDC dc(this); // device context for painting
+
+	//CRect rect;
+	//GetClientRect(&rect);
+
+	//Graphics mainG (dc.GetSafeHdc());
+
+	//// 메모리 생성
+	//Bitmap memBmp(rect.Width(), rect.Height());
+
+	//Graphics memG(&memBmp);
+
+	//// 잔상을 없애기 위해 white 채움.
+	//SolidBrush brs(Color(255,0,0,0));
+	//memG.FillRectangle(&brs,0,0,rect.Width(),rect.Height());
+
+	////----- 메모리상에 그리는 부분 -----//
+	//if (m_pBmpCheck == NULL && m_pBmpUnCheck == NULL)
+	//{
+	//	DrawBkg(&memG);
+	//	DrawBorder(&memG);
+	//	DrawBoxBkg(&memG);
+	//	DrawBoxBorder(&memG);
+	//	DrawCheck(&memG);
+	//	DrawImage(&memG);
+	//	DrawText(&memG);
+	//}
+	//else
+	//{
+	//	DrawBitmap(&memG);
+	//}
+
+	////---------------------------------//
+
+	//if (m_bEnable == true)
+	//{
+	//	// 그려진 메모리를 최종 출력
+	//	mainG.DrawImage(&memBmp,0,0);
+	//}
+	//else
+	//{
+	//	ColorMatrix GrayMat = {	
+	//		0.30f, 0.30f, 0.30f, 0.00f, 0.00f,
+	//		0.59f, 0.59f, 0.59f, 0.00f, 0.00f,
+	//		0.11f, 0.11f, 0.11f, 0.00f, 0.00f,
+	//		0.00f, 0.00f, 0.00f, 1.00f, 0.00f,
+	//		0.00f, 0.00f, 0.00f, 0.00f, 1.00f	};
+
+	//		ImageAttributes ia;
+	//		ia.SetColorMatrix(&GrayMat);
+
+	//		RectF grect; grect.X=0, grect.Y=0; grect.Width = (float)rect.Width(); grect.Height = (float)rect.Height();
+	//		mainG.DrawImage(&memBmp, grect, 0, 0, (float)rect.Width(), (float)rect.Height(), UnitPixel, &ia);
+	//}
+
 	CPaintDC dc(this); // device context for painting
 
 	CRect rect;
@@ -126,8 +184,26 @@ void CRadioEx::OnPaint()
 
 	if (m_bEnable == true)
 	{
-		// 그려진 메모리를 최종 출력
-		mainG.DrawImage(&memBmp,0,0);
+		if (m_bMouseTrack == TRUE)
+		{
+			ColorMatrix HotMat = {	
+				1.05f, 0.00f, 0.00f, 0.00f, 0.00f,
+				0.00f, 1.05f, 0.00f, 0.00f, 0.00f,
+				0.00f, 0.00f, 1.05f, 0.00f, 0.00f,
+				0.00f, 0.00f, 0.00f, 1.00f, 0.00f,
+				0.05f, 0.05f, 0.05f, 0.00f, 1.00f	};
+
+				ImageAttributes ia;
+				ia.SetColorMatrix(&HotMat);
+
+				RectF grect; grect.X=0, grect.Y=0; grect.Width = (float)rect.Width(); grect.Height = (float)rect.Height();
+				mainG.DrawImage(&memBmp, grect, 0, 0, (float)rect.Width(), (float)rect.Height(), UnitPixel, &ia);
+		}
+		else
+		{
+			// 그려진 메모리를 최종 출력
+			mainG.DrawImage(&memBmp,0,0);
+		}
 	}
 	else
 	{
@@ -531,4 +607,26 @@ void CRadioEx::SetColorText(int nA, COLORREF clrColor)
 
 	m_clrText = Color(nA, r, g, b); 
 	Invalidate();
+}
+
+void CRadioEx::OnMouseLeave()
+{
+	m_bMouseTrack = FALSE;
+
+	CButton::OnMouseLeave();
+}
+
+
+void CRadioEx::OnMouseMove(UINT nFlags, CPoint point)
+{
+	if(!m_bMouseTrack)
+	{
+		TRACKMOUSEEVENT tme = {0};
+		tme.cbSize		= sizeof(tme);
+		tme.hwndTrack	= m_hWnd;
+		tme.dwFlags		= TME_LEAVE;
+		m_bMouseTrack = ::_TrackMouseEvent(&tme);
+	}
+
+	CButton::OnMouseMove(nFlags, point);
 }

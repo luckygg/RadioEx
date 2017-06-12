@@ -5,7 +5,7 @@
 //----------------------------------------------------------
 // Programmed by William Kim
 //----------------------------------------------------------
-// Last Update : 2017-05-22 13:45
+// Last Update : 2017-06-12 11:27
 // Modified by William Kim
 //----------------------------------------------------------
 
@@ -99,6 +99,7 @@ private :
 	Rect	m_rcImage;
 	Rect	m_rcCaption;
 	Rect	m_rcCheckBox;
+	BOOL	m_bMouseTrack;
 
 private :
 	void DrawBkg(Graphics *pG);
@@ -117,6 +118,8 @@ protected:
 public:
 	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnPaint();
+	afx_msg void OnMouseLeave();
+	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
 };
 
 
