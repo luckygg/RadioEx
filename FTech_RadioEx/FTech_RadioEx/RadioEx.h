@@ -5,7 +5,7 @@
 //----------------------------------------------------------
 // Programmed by William Kim
 //----------------------------------------------------------
-// Last Update : 2017-07-21 09:38
+// Last Update : 2017-07-21 10:18
 // Modified by William Kim
 //----------------------------------------------------------
 
@@ -37,13 +37,17 @@ public :
 	void SetSizeCheckBox(int nLeft, int nTop, int nWidth, int nHeight);
 
 	//----- Set Color -----//
-	void SetColorBkg		(int nA, int nR, int nG, int nB) { m_clrBkg			= Color(nA, nR, nG, nB); Invalidate(); }
+	void SetColorBkg		(int nChkA, int nChkR, int nChkG, int nChkB, int nUnChkA, int nUnChkR, int nUnChkG, int nUnChkB);
+	void SetColorChkBkg		(int nA, int nR, int nG, int nB) { m_clrChkBkg		= Color(nA, nR, nG, nB); Invalidate(); }
+	void SetColorUnChkBkg	(int nA, int nR, int nG, int nB) { m_clrUnChkBkg	= Color(nA, nR, nG, nB); Invalidate(); }
 	void SetColorBorder		(int nA, int nR, int nG, int nB) { m_clrBorder		= Color(nA, nR, nG, nB); Invalidate(); }
 	void SetColorBoxBkg		(int nA, int nR, int nG, int nB) { m_clrBoxBkg		= Color(nA, nR, nG, nB); Invalidate(); }
 	void SetColorBoxBorder	(int nA, int nR, int nG, int nB) { m_clrBoxBorder	= Color(nA, nR, nG, nB); Invalidate(); }
 	void SetColorCheck		(int nA, int nR, int nG, int nB) { m_clrCheck		= Color(nA, nR, nG, nB); Invalidate(); }
 	void SetColorText		(int nA, int nR, int nG, int nB) { m_clrText		= Color(nA, nR, nG, nB); Invalidate(); }
-	void SetColorBkg		(int nA, COLORREF clrColor);
+	void SetColorBkg		(int nChkA, COLORREF clrChk, int nUnChkA, COLORREF clrUnChk);
+	void SetColorChkBkg		(int nA, COLORREF clrColor);
+	void SetColorUnChkBkg	(int nA, COLORREF clrColor);
 	void SetColorBorder		(int nA, COLORREF clrColor);
 	void SetColorBoxBkg		(int nA, COLORREF clrColor);
 	void SetColorBoxBorder	(int nA, COLORREF clrColor);
@@ -88,7 +92,8 @@ private :
 	float	m_fSizeText;
 	float	m_fSizeBorder;
 	float	m_fSizeBoxBorder;
-	Color	m_clrBkg;
+	Color	m_clrChkBkg;
+	Color	m_clrUnChkBkg;
 	Color	m_clrText;
 	Color	m_clrBorder;
 	Color	m_clrBoxBorder;

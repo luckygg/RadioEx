@@ -11,7 +11,8 @@ IMPLEMENT_DYNAMIC(CRadioEx, CButton)
 
 CRadioEx::CRadioEx()
 {
-	m_clrBkg		= Color(255, 41, 41, 41);
+	m_clrChkBkg		= Color(255, 41, 41, 41);
+	m_clrUnChkBkg	= Color(255, 31, 31, 31);
 	m_clrBorder		= Color(255, 51, 51, 51);
 	m_clrBoxBkg		= Color(255, 81, 81, 81);
 	m_clrBoxBorder	= Color(255,  0,  0,128); 
@@ -257,7 +258,14 @@ void CRadioEx::DrawBkg(Graphics *pG)
 	CRect rect;
 	GetClientRect(&rect);
 
-	SolidBrush brs(m_clrBkg);
+	SolidBrush brs(m_clrChkBkg);
+
+	int nStatus = GetCheck();
+
+	if (nStatus == 1)
+		brs.SetColor(m_clrChkBkg);
+	else
+		brs.SetColor(m_clrUnChkBkg);
 
 	pG->FillRectangle(&brs,rect.left,rect.top,rect.right,rect.bottom);
 }
@@ -581,15 +589,51 @@ void CRadioEx::SetSizeCheckBox(int nLeft, int nTop, int nWidth, int nHeight)
 	Invalidate(); 
 }
 
-void CRadioEx::SetColorBkg(int nA, COLORREF clrColor)
+void CRadioEx::SetColorBkg(int nChkA, int nChkR, int nChkG, int nChkB, int nUnChkA, int nUnChkR, int nUnChkG, int nUnChkB)
+{
+	m_clrChkBkg = Color(nChkA, nChkR, nChkG, nChkB);
+	m_clrUnChkBkg = Color(nUnChkA, nUnChkA, nUnChkG, nUnChkB);
+	
+	Invalidate();
+}
+
+void CRadioEx::SetColorBkg(int nChkA, COLORREF clrChk, int nUnChkA, COLORREF clrUnChk)
+{
+	int r = GetRValue(clrChk);
+	int g = GetGValue(clrChk);
+	int b = GetBValue(clrChk);
+
+	m_clrChkBkg = Color(nChkA, r, g, b);
+
+	r = GetRValue(clrUnChk);
+	g = GetGValue(clrUnChk);
+	b = GetBValue(clrUnChk);
+
+	m_clrUnChkBkg = Color(nUnChkA, r, g, b);
+
+	Invalidate();
+}
+
+void CRadioEx::SetColorChkBkg(int nA, COLORREF clrColor)
 {
 	int r = GetRValue(clrColor);
 	int g = GetGValue(clrColor);
 	int b = GetBValue(clrColor);
 
-	m_clrBkg = Color(nA, r, g, b); 
+	m_clrChkBkg = Color(nA, r, g, b); 
 	Invalidate();
 }
+
+void CRadioEx::SetColorUnChkBkg(int nA, COLORREF clrColor)
+{
+	int r = GetRValue(clrColor);
+	int g = GetGValue(clrColor);
+	int b = GetBValue(clrColor);
+
+	m_clrUnChkBkg = Color(nA, r, g, b); 
+	Invalidate();
+}
+
 void CRadioEx::SetColorBorder(int nA, COLORREF clrColor)
 {
 	int r = GetRValue(clrColor);
