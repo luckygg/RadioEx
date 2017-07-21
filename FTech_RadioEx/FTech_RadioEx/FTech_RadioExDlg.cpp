@@ -30,6 +30,8 @@ void CFTech_RadioExDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_RADIO2, m_rbtnTest2);
 	DDX_Control(pDX, IDC_RADIO3, m_rbtnTest3);
 	DDX_Control(pDX, IDC_RADIO4, m_rbtnTest4);
+	DDX_Control(pDX, IDC_RADIO5, m_rbtnTest5);
+	DDX_Control(pDX, IDC_RADIO6, m_rbtnTest6);
 }
 
 BEGIN_MESSAGE_MAP(CFTech_RadioExDlg, CDialogEx)
@@ -71,11 +73,31 @@ BOOL CFTech_RadioExDlg::OnInitDialog()
 	m_rbtnTest2.SetText(_T("GDI+ Radio"));
 	m_rbtnTest2.SetGroupEnd();
 
+	CRect rect;
+	m_rbtnTest3.GetClientRect(&rect);
 	m_rbtnTest3.LoadImageFromFile(_T("check.png"),_T("normal.png"));
+	m_rbtnTest3.SetColorBkg(255,255,255,255);
+	m_rbtnTest3.SetSizeImage(0,0,rect.Width()-1,rect.Height()-1);
 	m_rbtnTest3.SetGroupBegin();
 	m_rbtnTest3.SetCheckButton(true);
 	m_rbtnTest4.LoadImageFromFile(_T("check.png"),_T("normal.png"));
+	m_rbtnTest4.SetColorBkg(255,255,255,255);
+	m_rbtnTest4.SetSizeImage(0,0,rect.Width()-1,rect.Height()-1);
 	m_rbtnTest4.SetGroupEnd();
+
+	m_rbtnTest5.SetAlignTextCM();
+	m_rbtnTest5.SetSizeCheck(0);
+	m_rbtnTest5.SetSizeCheckBox(0,0,0,0);
+	m_rbtnTest5.SetColorBkg(255,RGB(128,128,128));
+	m_rbtnTest5.SetText(_T("Color Button 1"));
+	m_rbtnTest5.SetGroupBegin();
+
+	m_rbtnTest6.SetAlignTextCM();
+	m_rbtnTest6.SetSizeCheck(0);
+	m_rbtnTest6.SetSizeCheckBox(0,0,0,0);
+	m_rbtnTest6.SetColorBkg(255,RGB(128,128,128));
+	m_rbtnTest6.SetText(_T("Color Button 2"));
+	m_rbtnTest6.SetGroupEnd();
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }

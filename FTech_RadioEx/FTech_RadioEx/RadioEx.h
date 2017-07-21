@@ -5,7 +5,7 @@
 //----------------------------------------------------------
 // Programmed by William Kim
 //----------------------------------------------------------
-// Last Update : 2017-06-12 11:27
+// Last Update : 2017-07-21 09:38
 // Modified by William Kim
 //----------------------------------------------------------
 
@@ -79,6 +79,7 @@ public :
 
 private :
 	bool	m_bEnable;
+	bool	m_bClicked;
 	int		m_nOffsetTextX;
 	int		m_nOffsetTextY;
 	int		m_nTextAlign1;
@@ -120,6 +121,8 @@ public:
 	afx_msg void OnPaint();
 	afx_msg void OnMouseLeave();
 	afx_msg void OnMouseMove(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 };
 
 

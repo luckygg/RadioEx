@@ -34,4 +34,6 @@ public:
 	CRadioEx m_rbtnTest2;
 	CRadioEx m_rbtnTest3;
 	CRadioEx m_rbtnTest4;
+	CRadioEx m_rbtnTest5;
+	CRadioEx m_rbtnTest6;
 };

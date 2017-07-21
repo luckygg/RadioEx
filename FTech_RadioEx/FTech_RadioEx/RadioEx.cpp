@@ -19,6 +19,7 @@ CRadioEx::CRadioEx()
 	m_clrText		= Color(255,255,255,255);
 
 	m_bEnable	= true;
+	m_bClicked	= false;
 	m_bMouseTrack = FALSE;
 
 	m_fSizeBorder	= 4;
@@ -67,6 +68,8 @@ BEGIN_MESSAGE_MAP(CRadioEx, CButton)
 	ON_WM_PAINT()
 	ON_WM_MOUSELEAVE()
 	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 // CRadioEx message handlers
 
@@ -177,6 +180,7 @@ void CRadioEx::OnPaint()
 	}
 	else
 	{
+		DrawBkg(&memG);
 		DrawBitmap(&memG);
 	}
 
@@ -227,14 +231,23 @@ void CRadioEx::DrawBitmap(Graphics *pG)
 	CRect rect;
 	GetClientRect(&rect);
 
+	//Rect rcNew(0,0,rect.Width(),rect.Height());
+	Rect rcNew(m_rcImage);
+
+
+	if (m_bClicked == true)
+		rcNew.Offset(1,1);
+
 	int nStatus = GetCheck();
 	if (nStatus == 1)
 	{
-		pG->DrawImage(m_pBmpCheck, Rect(0,0,rect.Width(),rect.Height()), 0,0, m_pBmpCheck->GetWidth(), m_pBmpCheck->GetHeight(), UnitPixel);
+		//pG->DrawImage(m_pBmpCheck, Rect(0,0,rect.Width(),rect.Height()), 0,0, m_pBmpCheck->GetWidth(), m_pBmpCheck->GetHeight(), UnitPixel);
+		pG->DrawImage(m_pBmpCheck, rcNew, 0,0, m_pBmpCheck->GetWidth(), m_pBmpCheck->GetHeight(), UnitPixel);
 	}
 	else
 	{
-		pG->DrawImage(m_pBmpUnCheck, Rect(0,0,rect.Width(),rect.Height()), 0,0, m_pBmpUnCheck->GetWidth(), m_pBmpUnCheck->GetHeight(), UnitPixel);
+		//pG->DrawImage(m_pBmpUnCheck, Rect(0,0,rect.Width(),rect.Height()), 0,0, m_pBmpUnCheck->GetWidth(), m_pBmpUnCheck->GetHeight(), UnitPixel);
+		pG->DrawImage(m_pBmpUnCheck, rcNew, 0,0, m_pBmpUnCheck->GetWidth(), m_pBmpUnCheck->GetHeight(), UnitPixel);
 	}
 
 }
@@ -304,11 +317,19 @@ void CRadioEx::DrawImage(Graphics *pG)
 
 	if (m_pBmpImage == NULL) return;
 
-	pG->DrawImage(m_pBmpImage, m_rcImage, 0,0, m_pBmpImage->GetWidth(), m_pBmpImage->GetHeight(), UnitPixel);
+	Rect rcNew(m_rcImage);
+
+	if (m_bClicked == true)
+		rcNew.Offset(1,1);
+
+	pG->DrawImage(m_pBmpImage, rcNew, 0,0, m_pBmpImage->GetWidth(), m_pBmpImage->GetHeight(), UnitPixel);
 }
 
 void CRadioEx::DrawText(Graphics *pG)
 {
+	CRect rect;
+	GetClientRect(&rect);
+
 	CString text = _T("");
 	GetWindowText(text);
 
@@ -320,8 +341,14 @@ void CRadioEx::DrawText(Graphics *pG)
 	formatAlign.SetLineAlignment((Gdiplus::StringAlignment)m_nTextAlign2);	// Top / Middle / Bottom
 
 	SolidBrush brs(m_clrText);
-	RectF rcfCaption((REAL)m_rcCaption.GetLeft(), (REAL)m_rcCaption.GetTop(), (REAL)m_rcCaption.Width, (REAL)m_rcCaption.Height);
-	pG->DrawString(text,text.GetLength(),&font,rcfCaption,&formatAlign,&brs);
+	//RectF rcfCaption((REAL)m_rcCaption.GetLeft(), (REAL)m_rcCaption.GetTop(), (REAL)m_rcCaption.Width, (REAL)m_rcCaption.Height);
+	//pG->DrawString(text,text.GetLength(),&font,rcfCaption,&formatAlign,&brs);
+
+	RectF rc((float)rect.left+m_nOffsetTextX, (float)rect.top+m_nOffsetTextY, (float)rect.Width(),(float)rect.Height());
+	if (m_bClicked == true)
+		rc.Offset(1,1);
+
+	pG->DrawString(text,text.GetLength(),&font,rc,&formatAlign,&brs);
 }
 
 bool CRadioEx::LoadImageFromFile(CString strPath)
@@ -629,4 +656,20 @@ void CRadioEx::OnMouseMove(UINT nFlags, CPoint point)
 	}
 
 	CButton::OnMouseMove(nFlags, point);
+}
+
+
+void CRadioEx::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	m_bClicked = true;
+
+	CButton::OnLButtonDown(nFlags, point);
+}
+
+
+void CRadioEx::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	m_bClicked = false;
+
+	CButton::OnLButtonUp(nFlags, point);
 }
